@@ -23,4 +23,12 @@ class Validator
 
         return true;
     }
+
+    public function speedValidate($speed)
+    {
+        if (!is_numeric($speed)) {
+            return false;
+        }
+        return true;
+    }
 }

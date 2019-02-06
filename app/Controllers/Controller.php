@@ -33,17 +33,25 @@ class Controller
 
     public function actionSpeed()
     {
-//        $this->validator->speedValidate($_POST['speed']);
-
         if (isset($_POST['speed'])) {
-            $speed = new Speed($_POST['speed']);
-            $output = [
-                'message' => $speed->kphToMph()
-            ];
+
+            $validation = $this->validator->speedValidate($_POST['speed']);
+
+            if (!$validation) {
+                $output = [
+                    'alert' =>'Введите число'
+                ];
+            } else {
+                $speed = new Speed($_POST['speed']);
+                $output = [
+                    'message' => $speed->kphToMph()
+                ];
+            }
+
             return $this->view->render('speed.twig', $output);
         }
-        return $this->view->render('speed.twig');
 
+        return $this->view->render('speed.twig');
     }
 
     public function actionZodiac()
@@ -58,7 +66,6 @@ class Controller
                 ];
             } else {
                 $zodiac = new Zodiac($_POST['zodiac']);
-
                 $output = [
                     'message' =>'Ваш знак зодиака "' . $zodiac->determineZodiac() . '"'
                 ];
