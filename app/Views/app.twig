@@ -22,6 +22,11 @@
     {% endblock %}
     </div>
 
+    {% if speed %}
+        <h4 class="display-4 text-center">{{ speed }}</h4>
+    {% elseif zodiac %}
+        <h4 class="display-4 text-center">{{ zodiac }}</h4>
+    {% endif %}
 </div>
 </body>
 </html>

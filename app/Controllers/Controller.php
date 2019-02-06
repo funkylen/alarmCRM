@@ -2,6 +2,10 @@
 
 namespace App\Controllers;
 
+use App\Classes\Speed;
+use App\Classes\Zodiac;
+use App\View;
+
 
 class Controller
 {
@@ -9,33 +13,43 @@ class Controller
 
     public function __construct()
     {
-        $loader = new \Twig_Loader_Filesystem(__DIR__ . DIRECTORY_SEPARATOR .'Views/');
-        $this->view = new \Twig_Environment($loader, [
-            'cache' => false,
-        ]);
+        $this->view = new View();
     }
 
-    public function action($action)
+    public function action($uri)
     {
+        $action = ucfirst(strtolower(str_replace('/', '', $uri)));
+
+        if (empty($action)) {
+            return $this->view->render('app.twig');
+        }
+
         $methodName = 'action' . $action;
-        return $this->$methodName;
+        return $this->$methodName();
     }
 
     public function actionSpeed()
     {
         if (isset($_POST['speed'])) {
             $speed = new Speed($_POST['speed']);
-            $output = $speed->kphToMph();
+            $output = [
+                'speed' => $speed->kphToMph()
+            ];
+            return $this->view->render('speed.twig', $output);
         }
-        $this->view('speed.twig', $output);
+        return $this->view->render('speed.twig');
+
     }
 
     public function actionZodiac()
     {
         if (isset($_POST['zodiac'])) {
             $zodiac = new Zodiac($_POST['zodiac']);
-            $output = 'Ваш знак зодиака "' . $zodiac->determineZodiac() . '"';
+            $output = [
+                'zodiac' =>'Ваш знак зодиака "' . $zodiac->determineZodiac() . '"'
+            ];
+            return $this->view->render('zodiac.twig', $output);
         }
-        $this->view('zodiac.twig', $output);
+        return $this->view->render('zodiac.twig');
     }
 }

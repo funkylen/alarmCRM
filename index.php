@@ -4,4 +4,6 @@ namespace App;
 
 require __DIR__ . '/vendor/autoload.php';
 
-require __DIR__ . '/app/app.php';
+$app = new \App\Controllers\Controller;
+
+echo $app->action($_SERVER['REQUEST_URI']);
