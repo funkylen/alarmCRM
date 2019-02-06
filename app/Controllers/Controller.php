@@ -24,7 +24,7 @@ class Controller
         $action = ucfirst(strtolower(str_replace('/', '', $uri)));
 
         if (empty($action)) {
-            return $this->view->render('app.twig');
+            return $this->view->render('home.twig');
         }
 
         $methodName = 'action' . $action;
