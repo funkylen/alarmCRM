@@ -1,0 +1,13 @@
+{% extends 'app.twig' %}
+
+{% block content %}
+    <form action="/zodiac" method="post" class="jumbotron col-md-6">
+
+        <div class="form-group">
+            <label for="zodiac">Вывод знака зодиака по дате рождения</label>
+            <input type="text" class="form-control" id="zodiac" placeholder="dd.mm.yyyy" name="zodiac" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+    </form>
+{% endblock %}
