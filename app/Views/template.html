@@ -23,14 +23,14 @@
 
             <div class="form-group">
                 <label for="speed">Перевод скорости из км/ч в м/c</label>
-                <input type="text" class="form-control" id="speed" placeholder="км/ч" name="speed">
+                <input type="text" class="form-control" id="speed" placeholder="км/ч" name="speed" required>
             </div>
 
             <?php elseif ($_GET['nav'] == 'zodiac') : ?>
 
             <div class="form-group">
                 <label for="zodiac">Вывод знака зодиака по дате рождения</label>
-                <input type="text" class="form-control" id="zodiac" placeholder="dd.mm.yyyy" name="zodiac">
+                <input type="text" class="form-control" id="zodiac" placeholder="dd.mm.yyyy" name="zodiac" required>
             </div>
 
             <?php endif ?>
@@ -39,7 +39,9 @@
         </form>
     </div>
 
-    <h4 class="display-4 text-center mt-5"><?= $inMph ?></h4>
+    <?php if (isset($output)) : ?>
+        <h4 class="display-4 text-center mt-5"><?= $output ?></h4>
+    <?php endif ?>
 </div>
 
 

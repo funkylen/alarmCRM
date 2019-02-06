@@ -5,59 +5,60 @@ namespace App\Classes;
 class Zodiac
 {
     protected $date;
+    protected $month;
     protected $zodiacMap = [];
 
     public function __construct($date)
     {
-        $dayAndMonth = mb_substr($date, 0, 5);
-        $this->date = \DateTime::createFromFormat('d.m', $dayAndMonth);
+        $this->dayAndMonth = mb_substr($date, 0, 5);
+        $this->date = \DateTime::createFromFormat('d.m', $this->dayAndMonth);
 
         $this->zodiacMap = [
-            'aries' => [
+            'Овен' => [
                 \DateTime::createFromFormat('d.m', '21.03'),
                 \DateTime::createFromFormat('d.m', '20.04')
             ],
-            'taurus' => [
+            'Телец' => [
                 \DateTime::createFromFormat('d.m', '21.04'),
                 \DateTime::createFromFormat('d.m', '20.05')
             ],
-            'gemini' => [
+            'Близнецы' => [
                 \DateTime::createFromFormat('d.m', '21.05'),
                 \DateTime::createFromFormat('d.m', '21.06')
             ],
-            'cancer' => [
+            'Рак' => [
                 \DateTime::createFromFormat('d.m', '22.06'),
                 \DateTime::createFromFormat('d.m', '22.07')
             ],
-            'leo' => [
+            'Лев' => [
                 \DateTime::createFromFormat('d.m', '23.07'),
                 \DateTime::createFromFormat('d.m', '23.08')
             ],
-            'virgo' => [
+            'Дева' => [
                 \DateTime::createFromFormat('d.m', '24.08'),
                 \DateTime::createFromFormat('d.m', '23.09')
             ],
-            'libra' => [
+            'Весы' => [
                 \DateTime::createFromFormat('d.m', '24.09'),
                 \DateTime::createFromFormat('d.m', '23.10')
             ],
-            'scorpio' => [
+            'Скорпион' => [
                 \DateTime::createFromFormat('d.m', '24.10'),
                 \DateTime::createFromFormat('d.m', '22.11')
             ],
-            'sagittarius' => [
+            'Стрелец' => [
                 \DateTime::createFromFormat('d.m', '23.11'),
                 \DateTime::createFromFormat('d.m', '21.12')
             ],
-            'capricorn' => [
+            'Козерог' => [
                 \DateTime::createFromFormat('d.m', '22.12'),
                 \DateTime::createFromFormat('d.m', '20.01')
             ],
-            'aquarius' => [
+            'Водолей' => [
                 \DateTime::createFromFormat('d.m', '21.01'),
                 \DateTime::createFromFormat('d.m', '20.02')
             ],
-            'pisces' => [
+            'Рыбы' => [
                 \DateTime::createFromFormat('d.m', '21.02'),
                 \DateTime::createFromFormat('d.m', '20.03')
             ]
@@ -67,11 +68,13 @@ class Zodiac
     public function determineZodiac()
     {
         $birthday = $this->date;
-        $zodiac = array_filter($this->zodiacMap, function ($offset) use ($birthday) {
+
+        $zodiac = array_keys(array_filter($this->zodiacMap, function ($offset) use ($birthday) {
             if ($birthday >= $offset[0] && $birthday <= $offset[1]) {
                 return $birthday;
             }
-        });
-        var_dump($zodiac);
+        }))[0];
+
+        return !empty($zodiac) ? $zodiac : 'Козерог';
     }
 }
